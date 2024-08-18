@@ -1,0 +1,59 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Medicines
+@model IEnumerable<DisplayMedicineInCase>
+
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">
+                @Html.DisplayNameFor(model => model.TradeName)
+            </th>
+            <th scope="col" class="text-center">
+                @Html.DisplayNameFor(model => model.Times)
+            </th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center text-dark">
+                    @Html.DisplayFor(modelItem => item.TradeName)
+                </td>
+                <td class="text-center text-dark">
+                    @Html.DisplayFor(modelItem => item.Times)
+                </td>
+                <td class="text-center text-dark">
+                    <a asp-action="MedicineIngredients"
+                       asp-route-id="@ViewBag.Patient.Id"
+                       asp-route-caseId="@item.CaseId"
+                       asp-route-medicineId="@item.MedicineId">
+                            <input class="btn btn-outline-secondary" type="button" value="Ingredients" />
+                    </a>
+
+                    <a asp-action="CaseMedicineDetails"
+                       asp-route-id="@ViewBag.Patient.Id"
+                       asp-route-caseId="@item.CaseId"
+                       asp-route-medicineId="@item.MedicineId">
+                            <input class="btn btn-outline-info" type="button" value="Details" />
+                    </a>
+
+
+                    <a onclick="showInPopup('@Url.Action("EditCaseMedicine", "Patients", new {id = ViewBag.Patient.Id, caseId = item.CaseId, medicineId = item.MedicineId}, Context.Request.Scheme)','Edit medicine')">
+                            <input class="btn btn-outline-primary" type="button" value="Edit" />
+                    </a>
+
+
+                    <a asp-action="DeleteCaseMedicine"
+                        asp-route-id="@ViewBag.Patient.Id"
+                        asp-route-caseId="@item.CaseId"
+                        asp-route-medicineId="@item.MedicineId">
+                            <input class="btn btn-outline-danger" type="button" value="Delete" />
+                    </a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

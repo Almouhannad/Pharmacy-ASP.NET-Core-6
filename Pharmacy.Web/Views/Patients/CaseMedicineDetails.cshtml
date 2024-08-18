@@ -1,0 +1,91 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Medicines
+@model DisplayMedicineInCase
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="display-4 text-primary text-center">@Model.TradeName</h1>
+
+    <div class="owl-prev text-center" style="font-size: 24px;">
+        <a asp-action="CaseMedicines" asp-route-id="@ViewBag.Patient.Id" asp-route-caseId="@Model.CaseId"><span class="icon-arrow_back"></span></a>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.TradeName)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.TradeName)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.ScientificName)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.ScientificName)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Company)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Company)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Form)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Form)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Dose)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Dose)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Times)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Times)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.CategoryName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+</div>

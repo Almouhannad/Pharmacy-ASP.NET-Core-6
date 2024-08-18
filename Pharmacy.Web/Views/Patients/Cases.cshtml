@@ -1,0 +1,59 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Cases
+@model IEnumerable<DisplayCaseInPatient>
+
+@{
+    ViewData["Title"] = "Cases";
+}
+@if (User.IsInRole("admin"))
+{
+    <h1 style="text-align:center"><strong class="text-primary">@(ViewBag.Patient.FirstName + " " + ViewBag.Patient.LastName + "'s cases")</strong></h1>
+}
+else if (User.IsInRole("user"))
+{
+    <h1 style="text-align:center"><strong class="text-primary">Your cases</strong></h1>
+}
+
+<div class="owl-prev text-center mb-3" style="font-size: 24px;">
+    <a onclick="showInPopup('@Url.Action("AddCase", "Patients", new {id = @ViewBag.Patient.Id}, Context.Request.Scheme)','Add Case')">
+        <input class="btn btn-outline-success" type="button" value="+ Add case" />
+    </a>
+    <br />
+</div>
+
+@if (User.IsInRole("admin"))
+{
+    <div class="owl-prev text-center" style="font-size: 24px;">
+        <a asp-action="Index"><span class="icon-arrow_back"></span></a>
+    </div>
+}
+
+
+<div id="cases">
+    @await Html.PartialAsync("_CasesPartial", Model);
+</div>
+@*Pagination*@
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.TotalPages > 0)
+        {
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                var url = Url.Action("Cases", new { id = ViewBag.Patient.Id, pageNumber = i });
+                if (i == ViewBag.PageNumber)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" href="@url">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        @{
+                            <a class="page-link" href="@url">@i</a>
+                        }
+                    </li>
+                }
+            }
+        }
+    </ul>
+</nav>

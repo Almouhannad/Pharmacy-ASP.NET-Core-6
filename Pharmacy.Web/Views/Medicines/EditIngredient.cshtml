@@ -1,0 +1,50 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Requests.Ingredients
+@model EditIngredientInMedicineRequest
+
+@{
+    ViewData["Title"] = "Edit ingredient";
+}
+
+<h1 style="text-align:center"><strong class="text-primary">@("Edit ingredient for " + ViewBag.Medicine.TradeName)</strong></h1>
+
+<div class="owl-prev text-center" style="font-size: 24px;">
+    <a asp-action="Ingredients" asp-route-id="@Model.MedicineId"><span class="icon-arrow_back"></span></a>
+</div>
+
+<form asp-action="EditIngredient" asp-route-id="@Model.MedicineId">
+    <div class="p-3 p-lg-5 border">
+
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="MedicineId" value="@Model.MedicineId" />
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label asp-for="IngredientId" class="text-black">@Html.DisplayNameFor(Model => Model.IngredientId)<span class="text-danger">*</span></label>
+                <select asp-for="IngredientId" class="form-control" asp-items="@(new SelectList(Model.IngredientSelectList.GetSelectList(), "Key", "Value"))">
+                    <option value="@Model.IngredientId">@ViewBag.Ingredient.Name</option>
+                </select>
+                <span asp-validation-for="IngredientId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label asp-for="Ratio" class="text-black">@Html.DisplayNameFor(Model => Model.Ratio)<span class="text-danger">*</span></label>
+                <input asp-for="Ratio" class="form-control">
+                <span asp-validation-for="Ratio" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Update">
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

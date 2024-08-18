@@ -1,0 +1,76 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Requests.Medicines
+@model CreateMedicineRequest
+
+@{
+    ViewData["Title"] = "Create medicine";
+}
+
+<h1 style="text-align:center"><strong class="text-primary">Create medicine</strong></h1>
+
+<div class="owl-prev text-center" style="font-size: 24px;">
+    <a asp-action="Index"><span class="icon-arrow_back"></span></a>
+</div>
+
+<form asp-action="Create">
+
+    <div class="p-3 p-lg-5 border">
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label asp-for="TradeName" class="text-black">@Html.DisplayNameFor(Model => Model.TradeName) <span class="text-danger">*</span></label>
+                <input asp-for="TradeName" class="form-control">
+                <span asp-validation-for="TradeName" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="ScientificName" class="text-black">@Html.DisplayNameFor(Model => Model.ScientificName) <span class="text-danger">*</span></label>
+                <input asp-for="ScientificName" class="form-control">
+                <span asp-validation-for="ScientificName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label asp-for="Company" class="text-black">@Html.DisplayNameFor(Model => Model.Company) <span class="text-danger">*</span></label>
+                <input asp-for="Company" class="form-control">
+                <span asp-validation-for="Company" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="Form" class="text-black">@Html.DisplayNameFor(Model => Model.Form) <span class="text-danger">*</span></label>
+                <input asp-for="Form" class="form-control">
+                <span asp-validation-for="Form" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <label asp-for="Dose" class="text-black">@Html.DisplayNameFor(Model => Model.Dose) <span class="text-danger">*</span></label>
+                <input asp-for="Dose" class="form-control">
+                <span asp-validation-for="Dose" class="text-danger"></span>
+            </div>
+            <div class="col-md-6">
+                <label asp-for="CategoryId" class="text-black">@Html.DisplayNameFor(Model => Model.CategoryId) <span class="text-danger">*</span></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.CategorySelectList.GetSelectList(), "Key", "Value"))">
+                    <option value="">Select one</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Description" class="text-black">@Html.DisplayNameFor(Model => Model.Description)</label>
+            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-lg-12">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Create">
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+}

@@ -1,0 +1,48 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Ingredients
+@model DisplayIngredientInMedicine
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <h1 class="display-4 text-primary text-center">@Model.Name</h1>
+
+    <div class="owl-prev text-center" style="font-size: 24px;">
+        <a asp-action="MedicineIngredients" asp-route-id="@ViewBag.Patient.Id"
+           asp-route-caseId="@ViewBag.Case.Id"
+           asp-route-medicineId="@Model.MedicineId"><span class="icon-arrow_back"></span></a>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+            </dl>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2" style="color: black; border-right: 1px solid #ccc; padding-right: 10px;">
+                    @Html.DisplayNameFor(model => model.Ratio)
+                </dt>
+                <dd class="col-sm-10" style="color: black;">
+                    @Html.DisplayFor(model => model.Ratio)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+</div>

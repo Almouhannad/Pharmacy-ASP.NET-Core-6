@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Access Denied!";
+}
+
+<div class="text-center">
+    <h1 class="Display-2 text-danger">Access Denied!</h1>
+    <div class="text-center item mb-4 item-v2">
+        <img src="@Url.Content("~/assets/images/access_denied.jpg")" alt="Image" style="width: 50%; height: auto;">
+    </div>
+    <p class="lead Display-4 text-danger">You do NOT have permission to access this resource.</p>
+    <p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home Page</a>
+    </p>
+</div>

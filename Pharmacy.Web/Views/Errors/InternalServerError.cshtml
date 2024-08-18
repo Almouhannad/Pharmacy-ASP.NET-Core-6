@@ -1,0 +1,19 @@
+﻿@{
+    ViewData["Title"] = "Internal Server Error";
+}
+
+<div class="text-center">
+    <p class="lead Display-4"  style="color: purple;">An unexpected error occurred while processing your request.</p>
+     <div class="text-center item mb-4 item-v2">
+        <img src="@Url.Content("~/assets/images/server_error.jpg")" alt="Image" style="width: 50%; height: auto;">
+    </div>
+    <p class="text-black">
+        Our team has been notified and is working to resolve the issue as soon as possible.
+    </p>
+    <p class="text-black">
+        Please try again later or contact our support team at <a href="mailto:support@hiast.edu.sy">support@hiast.edu.sy</a> if the problem persists.
+    </p>
+    <p>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home Page</a>
+    </p>
+</div>

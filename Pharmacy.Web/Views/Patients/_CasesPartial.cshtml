@@ -1,0 +1,30 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Cases
+@model IEnumerable<DisplayCaseInPatient>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">@Html.DisplayNameFor(model => model.Name)</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center text-dark">@Html.DisplayFor(modelItem => item.Name)</td>
+                <td class="text-center text-dark">
+                    <a onclick="showInPopup('@Url.Action("EditCase", "Patients", new {id = item.PatientId, caseId = item.Id}, Context.Request.Scheme)','Edit Case')">
+                        <input class="btn btn-outline-primary" type="button" value="Edit" />
+                    </a>
+                    <a asp-action="CaseMedicines" asp-route-id="@item.PatientId" asp-route-caseId="@item.Id">
+                        <input class="btn btn-outline-secondary" type="button" value="Medicines" />
+                    </a>
+                    <a asp-action="DeleteCase" asp-route-id="@item.PatientId" asp-route-caseId="@item.Id">
+                        <input class="btn btn-outline-danger" type="button" value="Delete" />
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

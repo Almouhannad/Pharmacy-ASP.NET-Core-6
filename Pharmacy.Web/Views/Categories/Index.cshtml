@@ -1,0 +1,66 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Categories
+@model IEnumerable<DisplayCategory>
+
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h1 style="text-align:center"><strong class="text-primary">Categories</strong></h1>
+
+<div class="owl-prev text-center mb-3" style="font-size: 24px;">
+    <a asp-action="Create">
+        <input class="btn btn-outline-success" type="button" value="+ Create" />
+    </a>
+    <br />
+</div>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" class="text-center">
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center text-dark">
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+
+                <td class="text-center text-dark">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                    <a asp-action="Medicines" asp-route-id="@item.Id" class="btn btn-sm btn-outline-secondary">Medicines</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@*Pagination*@
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.TotalPages > 0)
+        {
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.PageNumber)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" href="#">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</nav>

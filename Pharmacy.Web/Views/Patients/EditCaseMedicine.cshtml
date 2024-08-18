@@ -1,0 +1,46 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Requests.Medicines
+@model EditMedicineInCaseRequest
+
+@{
+    ViewData["Title"] = "Edit medicine";
+    Layout = null;
+}
+
+
+<form asp-action="EditCaseMedicine" asp-route-id="@ViewBag.Patient.Id" asp-route-caseId="@Model.CaseId" asp-route-medicineId="@Model.MedicineId" onsubmit="return jQueryAjaxPost(this,'#medicines');">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+    <input type="hidden" asp-for="Id" value="@Model.Id" />
+    <input type="hidden" asp-for="CaseId" value="@Model.CaseId" />
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label asp-for="MedicineId" class="text-black">@Html.DisplayNameFor(Model => Model.MedicineId)<span class="text-danger">*</span></label>
+            <select asp-for="MedicineId" class="form-control" asp-items="@(new SelectList(Model.MedicineSelectList.GetSelectList(), "Key", "Value"))">
+                <option value="@Model.MedicineId">@Model.MedicineTradeName</option>
+            </select>
+            <span asp-validation-for="MedicineId" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label asp-for="Times" class="text-black">@Html.DisplayNameFor(Model => Model.Times)<span class="text-danger">*</span></label>
+            <input asp-for="Times" class="form-control">
+            <span asp-validation-for="Times" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-lg-12">
+            <input type="submit" class="btn btn-primary btn-lg btn-block" value="Save">
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

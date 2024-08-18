@@ -1,0 +1,19 @@
+﻿@{
+    Layout = "_MyLayout";
+}
+
+
+@*User*@
+@{
+    var user = new ApplicationUser();
+    if (SignInManager.IsSignedIn(User))
+        user = await UserManager.GetUserAsync(User);
+    ViewBag.User = user;
+}
+
+@*Notifications*@
+@using Pharmacy.Core.Interfaces.IServices.Notifications
+@inject IAddNewCaseNotificationService NotificationService
+@{
+    ViewBag.CountUnread = NotificationService.GetUnreadCount();
+}

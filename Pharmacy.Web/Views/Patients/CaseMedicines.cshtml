@@ -1,0 +1,50 @@
+﻿@using Pharmacy.Core.Entities.ViewModels.Responses.Medicines
+@model IEnumerable<DisplayMedicineInCase>
+
+@{
+    ViewData["Title"] = "Medicines";
+}
+
+<h1 style="text-align:center"><strong class="text-primary">@("Medicines in " + ViewBag.Case.Name + " case")</strong></h1>
+
+<div class="owl-prev text-center mb-3" style="font-size: 24px;">
+    <a onclick="showInPopup('@Url.Action("AddCaseMedicine", "Patients", new {id = @ViewBag.Patient.Id, caseId=@ViewBag.Case.Id}, Context.Request.Scheme)','Add Medicine')">
+        <input class="btn btn-outline-success" type="button" value="+ Add medicine" />
+    </a>
+    <br />
+</div>
+
+<div class="owl-prev text-center" style="font-size: 24px;">
+    <a asp-action="Cases" asp-route-id="@ViewBag.Patient.Id"><span class="icon-arrow_back"></span></a>
+</div>
+
+
+
+<div id="medicines">
+    @await Html.PartialAsync("_CaseMedicinesPartial", Model);
+</div>
+
+@*Pagination*@
+<nav aria-label="...">
+    <ul class="pagination justify-content-center">
+        @if (ViewBag.TotalPages > 0)
+        {
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.PageNumber)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" href="#">@i</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="CaseMedicines" asp-route-id="@ViewBag.Patient.Id"
+               asp-route-caseId="@ViewBag.Case.Id" asp-route-pageNumber="@i">@i</a>
+                    </li>
+                }
+            }
+        }
+    </ul>
+</nav>

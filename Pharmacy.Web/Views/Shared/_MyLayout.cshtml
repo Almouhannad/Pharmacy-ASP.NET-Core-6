@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Pharmacy - @ViewData["Title"]</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/fonts/icomoon/style.css">
+
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/fonts/flaticon/font/flaticon.css">
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/assets/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="~/assets/css/aos.css">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+</head>
+
+
+<body>
+    <div class="site-wrap">
+
+        @*Nav bar*@
+        <div class="site-navbar py-2">
+
+            <div class="search-wrap">
+                <div class="container">
+                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                    <form action="#" method="post">
+                        <input type="text" class="form-control" placeholder="Search keyword and hit enter...">
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="logo">
+                        <div class="site-logo">
+                            <a asp-controller="Home" class="js-logo-clone"><strong class="text-primary">Pharma</strong>tive</a>
+                        </div>
+                    </div>
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+
+                                @if (!SignInManager.IsSignedIn(User))
+                                {
+                                    <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+                                    <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                                }
+                                else
+                                {
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <li><a asp-controller="Patients" asp-action="Index">Patients</a></li>
+                                        <li><a asp-controller="Medicines" asp-action="Index">Medicines</a></li>
+                                        <li><a asp-controller="Categories" asp-action="Index">Categories</a></li>
+                                        <li><a asp-controller="Ingredients" asp-action="Index">Ingredients</a></li>
+                                        <li><a asp-controller="Cases" asp-action="Index">Cases</a></li>
+
+                                    }
+                                    else if (User.IsInRole("user"))
+                                    {
+                                        <li><a asp-controller="Patients" asp-action="Cases" asp-route-id="@ViewBag.User.PatientId">My cases</a></li>
+                                    }
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-success" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            @if (User.IsInRole("admin"))
+                                            {
+                                                if (ViewBag.CountUnread > 0)
+                                                {
+                                                    <span>Welcome, @ViewBag.User.Name! <span class="badge badge-danger badge-pill">@ViewBag.CountUnread</span></span>
+                                                }
+                                                else
+                                                {
+                                                    <span>Welcome, @ViewBag.User.Name!</span>
+
+                                                }
+                                            }
+                                            else if (User.IsInRole("user"))
+                                            {
+                                                <span>Welcome, @ViewBag.User.Name!</span>
+                                            }
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            @if (User.IsInRole("admin"))
+                                            {
+                                                if (ViewBag.CountUnread > 0)
+                                                {
+                                                    <a class="dropdown-item" asp-controller="Notifications" asp-action="UnreadAddedCases">Notifications (@ViewBag.CountUnread)</a>
+                                                }
+                                                else
+                                                {
+                                                    <a class="dropdown-item" asp-controller="Notifications" asp-action="AllAddedCases">Notifications</a>
+                                                }
+                                            }
+                                            <form asp-controller="Account" asp-action="Logout" method="post">
+                                                <input type="submit" value="Logout" class="dropdown-item" />
+                                            </form>
+                                        </div>
+                                    </li>
+                                }
+                                @*<li class="has-children">
+                                    <a href="#">Products</a>
+                                    <ul class="dropdown">
+                                    <li><a href="#">Supplements</a></li>
+                                    <li class="has-children">
+                                    <a href="#">Vitamins</a>
+                                    <ul class="dropdown">
+                                    <li><a href="#">Supplements</a></li>
+                                    <li><a href="#">Vitamins</a></li>
+                                    <li><a href="#">Diet &amp; Nutrition</a></li>
+                                    <li><a href="#">Tea &amp; Coffee</a></li>
+                                    </ul>
+                                    </li>
+                                    <li><a href="#">Diet &amp; Nutrition</a></li>
+                                    <li><a href="#">Tea &amp; Coffee</a></li>
+
+                                    </ul>
+                                    </li>*@
+                                @*<li><a href="about.html">About</a></li>
+                                    <li><a href="contact.html">Contact</a></li>*@
+                            </ul>
+                        </nav>
+                    </div>
+                    @*<div class="icons">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+                        <a href="cart.html" class="icons-btn d-inline-block bag">
+                        <span class="icon-shopping-bag"></span>
+                        <span class="number">2</span>
+                        </a>
+                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
+                        <span class="icon-menu"></span>
+                        </a>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+
+
+        @*Render body*@
+        <div>
+            @RenderBody()
+        </div>
+
+
+        @*Form modal*@
+        <div class="modal fade" tabindex="-1" role="dialog" id="form-modal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Modal Title</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*Footer*@
+        <footer class="site-footer bg-light">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-4 mb-4 mb-lg-0">
+
+                        <div class="block-7">
+                            <h3 class="footer-heading mb-4">About <strong class="text-primary">Pharmative</strong></h3>
+                            <p>
+                                This is a web app for a pharmacy.
+                            </p>
+                        </div>
+                    </div>
+
+                    @*<div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Navigation</h3>
+                        <ul class="list-unstyled">
+                        <li><a href="#">Supplements</a></li>
+                        <li><a href="#">Vitamins</a></li>
+                        <li><a href="#">Diet &amp; Nutrition</a></li>
+                        <li><a href="#">Tea &amp; Coffee</a></li>
+                        </ul>
+                        </div>*@
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Contact Info</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">HIAST</li>
+                                @*<li class="phone"><a href="tel://23923929210">+963 999 9999 999</a></li>*@
+                                <li class="email">almohanad.hafez@hiast.edu.sy</li>
+                                <li class="email">mariam.khairbek@hiast.edu.sy</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+
+                @*                    <div class="row pt-5 mt-5 text-center">
+                    <div class="col-md-12">
+                    <p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;
+                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                    with <i class="icon-heart text-danger" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank"
+                    class="text-primary">Colorlib</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </p>
+                    </div>
+                    </div>*@
+
+            </div>
+        </footer>
+
+    </div>
+
+    @*Scripts*@
+    <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
+    <script src="~/assets/js/popper.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/js/aos.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+
+</body>
+</html>
+
+<style>
+    .modal-backdrop {
+        background-color: #000;
+        opacity: 0.5;
+    }
+
+    .modal-open .site-navbar {
+        display: none;
+    }
+</style>
